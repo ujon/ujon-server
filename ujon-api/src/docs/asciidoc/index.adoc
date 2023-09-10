@@ -1,0 +1,11 @@
+:doctype: book
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 1
+:sectlinks:
+
+= API Documentation
+
+== Request
+
+include::{snippets}/test-controller-test/test/http-request.adoc[]

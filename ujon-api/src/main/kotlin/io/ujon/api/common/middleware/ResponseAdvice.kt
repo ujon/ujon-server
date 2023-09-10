@@ -1,0 +1,36 @@
+package io.ujon.api.common.middleware
+
+import io.ujon.api.common.response.ServiceResponse
+import org.springframework.core.MethodParameter
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageConverter
+import org.springframework.http.server.ServerHttpRequest
+import org.springframework.http.server.ServerHttpResponse
+import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice
+
+@RestControllerAdvice
+class ResponseAdvice : ResponseBodyAdvice<Any> {
+    /**
+     * Response 값이 ResponseEntity::class 가 아닐 때만 Advice 적용
+     */
+    override fun supports(returnType: MethodParameter, converterType: Class<out HttpMessageConverter<*>>): Boolean {
+        return returnType.parameterType != ResponseEntity::class.java
+    }
+
+    override fun beforeBodyWrite(
+        body: Any?,
+        returnType: MethodParameter,
+        selectedContentType: MediaType,
+        selectedConverterType: Class<out HttpMessageConverter<*>>,
+        request: ServerHttpRequest,
+        response: ServerHttpResponse
+    ): Any? {
+        if (body is ServiceResponse<*>) return body
+        if (body is String) return body
+        return ServiceResponse.success(body)
+    }
+
+
+}
