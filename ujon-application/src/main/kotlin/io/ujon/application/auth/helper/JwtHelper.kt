@@ -96,7 +96,7 @@ class JwtHelper(
     }
 
     private fun secretKey(key: String): SecretKey {
-        val keyBytes = Decoders.BASE64.decode(jwtProperties.accessTokenSecret)
+        val keyBytes = Decoders.BASE64.decode(key)
         return Keys.hmacShaKeyFor(keyBytes)
     }
 
