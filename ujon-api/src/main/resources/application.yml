@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    default: local
+  banner:
+    location: common/banner.txt
+  jackson:
+    property-naming-strategy: com.fasterxml.jackson.databind.PropertyNamingStrategy.SnakeCaseStrategy
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+
+---
+spring.config.activate.on-profile: local
+server:
+  port: 8081
+---
+spring.config.activate.on-profile: dev, prod

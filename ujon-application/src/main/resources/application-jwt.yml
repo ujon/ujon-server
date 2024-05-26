@@ -1,0 +1,8 @@
+app:
+  auth:
+    jwt:
+      issuer: io.ujon
+      access-token-secret: yddacb8590816311a7052f0b6f639255f31dda8d055e91ge818e03d9f6461883386700b012980714fe2c44a8543705e008ad89637b83c072d9794edaaa1f42hd
+      access-token-expires-in: 86400000 # 1 day: 1000 * 60 * 60 * 24
+      refresh-token-secret: 03b1b412abf0366ea1633d078addd064cf646484499b3176d4fcaa260a976ea1d16e8fa761d6518053aaa0749859aa4590fa34d7949e4cad719fff3655b6e037
+      refresh-token-expires-in: 604800000 # 7 day: 1000 * 60 * 60 * 24 * 7

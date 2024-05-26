@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: io.ujon.infra.common.config.PhysicalNamingStrategy
+    properties:
+      hibernate:
+        show-sql: false
+        default_batch_fetch_size: 100
+        format_sql: false # log
+    open-in-view: false
+
+
+---
+spring.config.activate.on-profile: local, test
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ujon_local
+    username: ujon
+    password: ujon_pw
+  jpa:
+    properties:
+      hibernate:
+        show-sql: true
+        format_sql: true

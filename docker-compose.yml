@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres
+    container_name: ujon-infra-pg
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - .infra/postgresql/:/var/lib/postgresql/data
+      - ./setup/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_DB=ujon_local
+      - POSTGRES_USER=ujon
+      - POSTGRES_PASSWORD=ujon_pw
+      - TZ=UTC
