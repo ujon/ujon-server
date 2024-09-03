@@ -18,7 +18,7 @@ class UserFacadeImpl(
         val info = userService.retrieveUserSecret(operation)
         return UserSecretOutput(
             userId = info.userId,
-            role = info.name
+            role = info.role
         )
     }
 }

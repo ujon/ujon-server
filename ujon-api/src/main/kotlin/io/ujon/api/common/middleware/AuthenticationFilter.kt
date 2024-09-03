@@ -1,6 +1,7 @@
 package io.ujon.api.common.middleware
 
 import io.ujon.api.common.dto.AccountPrincipal
+import io.ujon.api.common.helper.RoleGrantedAuthority
 import io.ujon.application.auth.AuthFacade
 import io.ujon.application.user.UserFacade
 import io.ujon.application.user.dto.input.RetrieveUserSecret
@@ -11,7 +12,7 @@ import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpHeaders
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
@@ -39,8 +40,8 @@ class AuthenticationFilter(
                 userId = userSecret.userId,
             )
 
-            val authorities = listOf(
-                userSecret.role?.let { SimpleGrantedAuthority(formatRoleName(it)) },
+            val authorities: List<GrantedAuthority?> = listOf(
+                userSecret.role?.let { RoleGrantedAuthority(it) },
             )
 
             val authentication = UsernamePasswordAuthenticationToken(principal, token, authorities)
@@ -65,6 +66,6 @@ class AuthenticationFilter(
      * @return the formatted role name
      */
     private fun formatRoleName(role: String): String {
-        return "ROLE_${role}"
+        return "ROLE_${role}".uppercase()
     }
 }
