@@ -23,7 +23,7 @@ class User(
     val userId: UUID = UUIDHelper.v7()
 
     // fk: source
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.EAGER)
     val emails: MutableList<UserEmail> = mutableListOf()
 
 
