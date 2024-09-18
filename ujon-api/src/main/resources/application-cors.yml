@@ -1,0 +1,21 @@
+app:
+  cors:
+    allowed-origins:
+      - "https://localhost:3000" # todo: 3000 -> 5173
+    allowed-methods:
+      - "GET"
+      - "POST"
+      - "PUT"
+      - "DELETE"
+      - "OPTIONS"
+    allowed-headers:
+      - "Authorization"
+      - "Content-Type"
+      - "Accept"
+    allow-credentials: true
+---
+spring.config.activate.on-profile: prod
+app:
+  cors:
+    allowed-origins:
+      - "https://ujon.dev"
