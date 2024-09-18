@@ -1,6 +1,7 @@
 package io.ujon.api.common.config
 
 import io.ujon.api.common.middleware.AuthenticationFilter
+import io.ujon.api.common.properties.CorsProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler
@@ -11,13 +12,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 class SecurityConfig(
-    private val authenticationFilter: AuthenticationFilter
+    private val authenticationFilter: AuthenticationFilter,
+    private val corsProperties: CorsProperties,
 ) {
     // todo: Change roleHierarchy dynamically with database.
     @Bean
@@ -34,14 +39,40 @@ class SecurityConfig(
         return expressionHandler
     }
 
+
+    @Bean
+    fun corsConfigurationSource(): CorsConfigurationSource {
+        val source = UrlBasedCorsConfigurationSource()
+
+        val configuration = CorsConfiguration().apply {
+            allowedOrigins = corsProperties.allowedOrigins
+            allowedMethods = corsProperties.allowedMethods
+            allowedHeaders = corsProperties.allowedHeaders
+            allowCredentials = corsProperties.allowCredentials
+        }
+        source.registerCorsConfiguration("/**", configuration)
+        /** tip: you can additionally config by path like below
+         *  val configuration = CorsConfiguration().apply {
+         *    allowedOrigins = listOf("http://localhost:3000", "https://public.ujon.dev")
+         *    allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
+         *    allowedHeaders = listOf("Authorization", "Content-Type", "Accept")
+         *    allowCredentials = true
+         *  }
+         *  source.registerCorsConfiguration("/api/test", configuration)
+         */
+        return source
+    }
+
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain? {
         return http
+//            .cors { it.configurationSource(corsConfigurationSource()) }
             .csrf { it.disable() }
             .formLogin { it.disable() }
             .authorizeHttpRequests {
                 it
                     .requestMatchers("/auth/**").permitAll()
+                    .requestMatchers("/test/**").permitAll()
                     .anyRequest().authenticated()
             }
             .sessionManagement {
