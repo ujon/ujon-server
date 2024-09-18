@@ -10,7 +10,8 @@ import org.mapstruct.Mapping
 @Mapper(componentModel = "spring")
 interface AuthFacadeMapper {
     // input -> operation
-    fun toRegisterUserOperationEmail(input: SignUpInput.Email): RegisterUserOperation.Email
+    @Mapping(target = "password", source = "encodedPassword")
+    fun toRegisterUserOperationEmail(input: SignUpInput.Email, encodedPassword: String): RegisterUserOperation.Email
 
     @Mapping(target = "copy", ignore = true)
     fun toRetrieveUserSecretOperation(input: SignInInput.Email): RetrieveUserSecretOperation.Email
