@@ -6,3 +6,10 @@ app:
       access-token-expires-in: 86400000 # 1 day: 1000 * 60 * 60 * 24
       refresh-token-secret: 03b1b412abf0366ea1633d078addd064cf646484499b3176d4fcaa260a976ea1d16e8fa761d6518053aaa0749859aa4590fa34d7949e4cad719fff3655b6e037
       refresh-token-expires-in: 604800000 # 7 day: 1000 * 60 * 60 * 24 * 7
+---
+spring.config.activate.on-profile: prod
+app:
+  auth:
+    jwt:
+      access-token-secret: ${ACCESS_TOKEN_SECRET}
+      refresh-token-secret: ${REFRESH_TOKEN_SECRET}

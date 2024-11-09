@@ -1,3 +1,5 @@
+tasks.bootJar { enabled = true }
+
 dependencies {
     implementation(project(":ujon-application"))
     implementation(project(":common:environment-loader"))

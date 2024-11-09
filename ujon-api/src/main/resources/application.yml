@@ -8,9 +8,10 @@ spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
 
+server.servlet.context-path: /api
 ---
 spring.config.activate.on-profile: local
 server:
   port: 8081
 ---
-spring.config.activate.on-profile: dev, prod
+spring.config.activate.on-profile: prod

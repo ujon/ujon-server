@@ -12,8 +12,6 @@ spring:
         default_batch_fetch_size: 100
         format_sql: false # log
     open-in-view: false
-
-
 ---
 spring.config.activate.on-profile: local, test
 spring:
@@ -21,6 +19,18 @@ spring:
     url: jdbc:postgresql://localhost:5432/ujon_local
     username: ujon
     password: ujon_pw
+  jpa:
+    properties:
+      hibernate:
+        show-sql: true
+        format_sql: true
+---
+spring.config.activate.on-profile: prod
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     properties:
       hibernate:

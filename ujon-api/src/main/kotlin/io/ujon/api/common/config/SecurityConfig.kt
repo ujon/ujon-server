@@ -45,28 +45,19 @@ class SecurityConfig(
         val source = UrlBasedCorsConfigurationSource()
 
         val configuration = CorsConfiguration().apply {
-            allowedOrigins = corsProperties.allowedOrigins
-            allowedMethods = corsProperties.allowedMethods
-            allowedHeaders = corsProperties.allowedHeaders
-            allowCredentials = corsProperties.allowCredentials
+            allowedOrigins = listOf("http://localhost:3000", "https://ujon.dev")
+            allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
+            allowedHeaders = listOf("Authorization", "Content-Type", "Accept")
+            allowCredentials = true
         }
         source.registerCorsConfiguration("/**", configuration)
-        /** tip: you can additionally config by path like below
-         *  val configuration = CorsConfiguration().apply {
-         *    allowedOrigins = listOf("http://localhost:3000", "https://public.ujon.dev")
-         *    allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
-         *    allowedHeaders = listOf("Authorization", "Content-Type", "Accept")
-         *    allowCredentials = true
-         *  }
-         *  source.registerCorsConfiguration("/api/test", configuration)
-         */
         return source
     }
 
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain? {
         return http
-//            .cors { it.configurationSource(corsConfigurationSource()) }
+            .cors { it.configurationSource(corsConfigurationSource()) }
             .csrf { it.disable() }
             .formLogin { it.disable() }
             .authorizeHttpRequests {
