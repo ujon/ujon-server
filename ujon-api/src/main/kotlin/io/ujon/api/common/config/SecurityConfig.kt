@@ -62,6 +62,7 @@ class SecurityConfig(
             .formLogin { it.disable() }
             .authorizeHttpRequests {
                 it
+                    .requestMatchers("/health").permitAll()
                     .requestMatchers("/auth/**").permitAll()
                     .requestMatchers("/test/**").permitAll()
                     .anyRequest().authenticated()
