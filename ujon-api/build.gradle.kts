@@ -7,4 +7,5 @@ dependencies {
     implementation(project(":common:ujon-config"))
 
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
 }
