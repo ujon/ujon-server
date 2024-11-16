@@ -9,4 +9,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-impl:$jsonwebtokenVersion")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:$jsonwebtokenVersion")
     implementation("org.springframework.security:spring-security-crypto")
+
+    // test
+    testImplementation(project(":common:environment-loader"))
 }
