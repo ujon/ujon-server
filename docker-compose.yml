@@ -1,0 +1,13 @@
+# @description: only for local use
+
+services:
+  api:
+    container_name: ujon-api
+    platform: linux/amd64
+    network_mode: "host"
+    build:
+      context: .
+      dockerfile: ./ujon-api/Dockerfile
+    restart: always
+    ports:
+      - "8081:8080"
