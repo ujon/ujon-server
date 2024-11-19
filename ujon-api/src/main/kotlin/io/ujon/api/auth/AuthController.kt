@@ -4,13 +4,10 @@ import io.ujon.api.auth.mapper.AuthControllerMapper
 import io.ujon.api.auth.request.RefreshRequest
 import io.ujon.api.auth.request.SignInRequest
 import io.ujon.api.auth.request.SignUpRequest
+import io.ujon.api.auth.request.VerifyTokenRequest
 import io.ujon.application.auth.AuthFacade
 import io.ujon.application.auth.dto.output.AuthorityOutput
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/auth")
@@ -31,14 +28,19 @@ class AuthController(
         return authFacade.signIn(input)
     }
 
+    @PostMapping("/signin/passcode")
+    fun signInPasscode(@RequestBody request: SignInRequest.Passcode): AuthorityOutput {
+        return authFacade.signInPasscode(request.passcode)
+    }
+
     @PostMapping("/refresh")
     fun refresh(@RequestBody request: RefreshRequest): AuthorityOutput {
         return authFacade.refresh(request.refreshToken)
     }
 
-    @GetMapping("/verify-token")
-    fun verifyToken(): Boolean {
-        authFacade.verifyToken("todo")
+    @GetMapping("/token/verify")
+    fun verifyToken(@RequestBody request: VerifyTokenRequest): Boolean {
+        authFacade.verifyToken(request.accessToken)
         return true
     }
 }

@@ -15,16 +15,11 @@ class UserQueryDslRepositoryImpl : QuerydslRepositorySupport(User::class.java), 
         .where(userEmail.email.eq(email))
         .fetchOne()
 
-    override fun findUserSecretByEmail(email: String): UserSecret? = from(user)
-        .select(userSecretProjection())
-        .leftJoin(role).on(user.roleId.eq(role.roleId))
-        .leftJoin(userEmail).on(userEmail.user.userId.eq(user.userId))
-        .where(userEmail.email.eq(email))
+    override fun findByPasscode(passcode: String): User? = from(user)
+        .where(user.passcode.eq(passcode))
         .fetchOne()
 
-    override fun findUserSecretByUsername(username: String): UserSecret? = from(user)
-        .select(userSecretProjection())
-        .leftJoin(role).on(user.roleId.eq(role.roleId))
+    override fun findByUsername(username: String): User? = from(user)
         .where(user.username.eq(username))
         .fetchOne()
 
@@ -35,10 +30,4 @@ class UserQueryDslRepositoryImpl : QuerydslRepositorySupport(User::class.java), 
     override fun existsByUsername(username: String): Boolean = from(user)
         .where(user.username.eq(username))
         .fetchOne() != null
-
-    private fun userSecretProjection() = Projections.constructor(
-        UserSecret::class.java,
-        user,
-        role
-    )
 }

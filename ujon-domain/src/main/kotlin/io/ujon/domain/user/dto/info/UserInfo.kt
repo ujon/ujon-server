@@ -15,4 +15,5 @@ data class UserInfo(
     val username: String,
     val name: String,
     val email: String,
+    val role: String,
 )

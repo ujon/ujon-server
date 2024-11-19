@@ -22,6 +22,7 @@ enum class ResponseType(
 
     // USER
     USER_NOT_EXIST(HttpStatus.NOT_FOUND, "User is not exist"),
+    INVALID_PASSCODE(HttpStatus.BAD_REQUEST, "Invalid passcode"),
     EMAIL_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "Email already exist"),
     USERNAME_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "Username already exist"),
 
