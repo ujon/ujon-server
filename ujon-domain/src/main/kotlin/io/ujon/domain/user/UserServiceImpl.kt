@@ -21,13 +21,13 @@ class UserServiceImpl(
     // util
     private val passwordEncoder: PasswordEncoder,
 ) : UserService {
-    override fun registerUser(operation: RegisterUserOperation.Email): UserInfo {
+    override fun register(operation: RegisterUserOperation.Email): UserInfo {
         if (userRepository.existsByEmail(operation.email)) throw CommonException(ResponseType.EMAIL_ALREADY_EXIST)
         if (userRepository.existsByUsername(operation.username)) throw CommonException(ResponseType.USERNAME_ALREADY_EXIST)
         val userRole = roleRepository.default()
         val user = User(
             username = operation.username,
-            password = operation.password,
+            password = passwordEncoder.encode(operation.password),
             name = operation.name,
             role = userRole
         )

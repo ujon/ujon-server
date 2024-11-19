@@ -33,7 +33,7 @@ class AuthController(
         return authFacade.signInPasscode(request.passcode)
     }
 
-    @PostMapping("/refresh")
+    @PostMapping("/token/refresh")
     fun refresh(@RequestBody request: RefreshRequest): AuthorityOutput {
         return authFacade.refresh(request.refreshToken)
     }

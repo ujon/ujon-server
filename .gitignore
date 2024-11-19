@@ -41,3 +41,6 @@ out/
 
 ### Docker ###
 .infra/
+
+### http ###
+**/http-client.env.json

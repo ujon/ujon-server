@@ -1,0 +1,54 @@
+
+###
+# @name signup
+
+POST {{host}}/auth/signup
+Content-Type: application/json
+
+{
+    "email": "tester@gmail.com",
+    "name": "tester",
+    "password": "test_pw",
+    "username": "test"
+}
+
+###
+# @name signin
+
+POST {{host}}/auth/signin
+Content-Type: application/json
+
+{
+    "email": "tester@gmail.com",
+    "password": "test_pw"
+}
+
+###
+# @name signin with passcode
+
+POST {{host}}/auth/signin/passcode
+Content-Type: application/json
+
+{
+    "passcode": "test_passcode"
+}
+
+###
+# @name refresh token
+
+POST {{host}}/auth/token/refresh
+Content-Type: application/json
+
+{
+    "refreshToken": "{{refresh-token}}"
+}
+
+###
+# @name verify token
+
+POST {{host}}/auth/token/verify
+Content-Type: application/json
+
+{
+    "accessToken": "{{access-token}}"
+}
