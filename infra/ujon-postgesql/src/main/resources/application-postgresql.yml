@@ -1,6 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/ujon_local
+    username: ujon
+    password: ujon_pw
   jpa:
     hibernate:
       ddl-auto: validate
@@ -15,17 +18,10 @@ spring:
 
     open-in-view: false
 ---
-spring.config.activate.on-profile: local, test
+spring.config.activate.on-profile: local_docker
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/ujon_local
-    username: ujon
-    password: ujon_pw
-  jpa:
-    properties:
-      hibernate:
-        show-sql: true
-        format_sql: true
+    url: jdbc:postgresql://ujon-infra-pg:5432/ujon_local
 ---
 spring.config.activate.on-profile: prod
 spring:

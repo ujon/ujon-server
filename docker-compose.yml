@@ -1,13 +1,23 @@
-# @description: only for local use
+## @description: only for local use
 
 services:
   api:
     container_name: ujon-api
-    platform: linux/amd64
-    network_mode: "host"
+    platform: linux/arm64/v8
     build:
       context: .
       dockerfile: ./ujon-api/Dockerfile
     restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=local_docker
     ports:
       - "8081:8080"
+    networks:
+      - ujon_default
+
+# docker network create ujon_network
+networks:
+  ujon_default:
+    name: ujon_default
+    external: true
+
